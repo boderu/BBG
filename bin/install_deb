@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+pushd $HOME
+
+sudo chown -Rv _apt:root /var/cache/apt/archives/partial/
+sudo chmod -Rv 700 /var/cache/apt/archives/partial/
+
+echo ; echo "Update existing Debian packages"
+sudo apt update
+sudo apt upgrade -y
+
+echo ; echo "Remove Debian packages"
+if [ -e "$HOME/BBG/deb-remove.conf" ]
+then
+	cat "$HOME/BBG/deb-remove.conf" | grep -v '^#' | grep -v '^$' | \
+	while read LINE
+	do
+		echo "Remove $LINE:"
+		sudo apt remove -y $LINE
+		echo
+	done
+fi
+
+echo ; echo "Remove packages that are no longer required"
+sudo apt autoremove -y
+
+
+echo ; echo "Install Debian packages"
+if [ -e "$HOME/BBG/deb-install.conf" ]
+then
+	cat "$HOME/BBG/deb-install.conf" | grep -v '^#' | grep -v '^$' | \
+	while read LINE
+	do
+		echo "Install $LINE:"
+		sudo apt install -y --install-recommends $LINE
+		echo
+	done
+fi
+
+popd
+
+# EOF

@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# Funktion: erzeuge symbolische Links mit erweiterter Prüfung
+# $1 Quelle:	Datei oder Verzeichnis welches verlinkt werden soll
+# $2 Ziel:		der zu erzeugende symbolische Link
+function Link
+{
+	echo
+	# Exisitiert das Ziel?
+	if [ -e "$2" ]
+	then
+		# ja, das Ziel existiert
+		# ist das Ziel bereits ein symbolischer Link?
+		if [ -L "$2" ]
+		then
+			# ja, das Ziel ist bereits ein symbolischer Link
+			echo "$2 ist bereits ein symbolischer Link"
+
+			# zeigt der symbolische Link nicht auf die Quelle?
+			if [[ $(readlink "$2") != "$1" ]]
+			then
+				# ja, der symbolische Link zeigt nicht auf die Quelle
+				echo "symbolischer Link $2 zeigt nicht auf die Quelle --> überschreiben"
+				# existiert die Quelle?
+				if [ -e "$1" ]
+				then
+					# ja, die Quelle existiert
+					rm "$2"					# existierenden Link löschen
+					ln -sv "$1" "$2"		# symbolischen Link erzeugen
+				else
+					# nein, die Quelle existiert nicht
+					echo "Die Quelle existiert nicht!"
+				fi
+			fi
+		else
+			# nein, das Ziel ist kein symbolischer Link
+			# existiert die Quelle?
+			if [ -e "$1" ]
+			then
+				# ja, die Quelle existiert
+				echo "$2 ist kein symbolischer Link --> existierende Datei oder Verzeichnis sichern"
+				mv -fv "$2" "$2.saved"	# eine existierende Sicherung wird überschrieben
+				rm -fRv "$2"			# vorhandene Datei oder Verzeichnis löschen
+				ln -sv "$1" "$2"		# symbolischen Link erzeugen
+			else
+				# nein, die Quelle existiert nicht
+				echo "Die Quelle existiert nicht!"
+			fi
+		fi
+	else
+		# nein, das Ziel existiert nicht
+			# existiert die Quelle?
+			if [ -e "$1" ]
+			then
+				# ja, die Quelle existiert
+				rm -fRv "$2"			# vorhandenes Ziel löschen (evtl. fehlerhafter Link)
+				ln -sv "$1" "$2"		# symbolischen Link erzeugen
+			else
+				# nein, die Quelle existiert nicht
+				echo "Die Quelle $1 existiert nicht!"
+			fi
+	fi
+} # Link()
+
+
+pushd $HOME
+
+Link "$HOME/BBG/.bashrc"				"$HOME/.bashrc"
+Link "$HOME/BBG/.bash_logout"			"$HOME/.bash_logout"
+Link "$HOME/BBG/.bash_aliases"			"$HOME/.bash_aliases"
+Link "$HOME/BBG/.profile"				"$HOME/.profile"
+Link "$HOME/BBG/.selected_editor"		"$HOME/.selected_editor"
+Link "$HOME/BBG/bin"					"$HOME/bin"
+#Link "$HOME/BBG/.ne"					"$HOME/.ne"
+Link "$HOME/BBG/.config/broot"			"$HOME/.config/broot"
+Link "$HOME/BBG/.config/btop"			"$HOME/.config/btop"
+Link "$HOME/BBG/.config/git-graph"		"$HOME/.config/git-graph"
+Link "$HOME/BBG/.config/htop"			"$HOME/.config/htop"
+Link "$HOME/BBG/.config/lazygit"		"$HOME/.config/lazygit"
+Link "$HOME/BBG/.config/micro"			"$HOME/.config/micro"
+Link "$HOME/BBG/.local/share/broot"		"$HOME/.local/share/broot"
+
+
+#Link 	"$HOME/SynologyDrive/Mint/.local/bin/avr8-gnu-toolchain-linux_x86_64"	\
+#		"$HOME/.local/bin/avr8-gnu-toolchain-linux_x86_64"
+
+popd
+
+# EOF

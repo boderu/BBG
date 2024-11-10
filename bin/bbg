@@ -1,0 +1,148 @@
+#!/bin/bash
+# Skript um den BeagleBone Green einzurichten.
+
+cd $HOME
+
+$HOME/Mint/bin/install_directories
+
+$HOME/BBG/bin/install_deb
+$HOME/BBG/bin/install_nerd
+#	$HOME/BBG/bin/install_micro
+#	$HOME/BBG/bin/install_lazygit
+#	$HOME/BBG/bin/install_xplr
+$HOME/BBG/bin/install_cppcheck
+$HOME/BBG/bin/install_rust
+$HOME/BBG/bin/install_ruby
+$HOME/BBG/bin/install_python
+
+
+#===================================================================================================================
+#	echo ; echo "arm-none-eabi-gdb"
+#	if [ ! -e "/usr/bin/arm-none-eabi-gdb" ]
+#	then
+#		if [ -e "/usr/bin/gdb-multiarch" ]
+#		then
+#			sudo ln --verbose -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
+#		fi
+#	fi
+
+
+#===================================================================================================================
+echo ; echo "Remove packages that are no longer required"
+sudo apt autoremove -y
+
+
+#===================================================================================================================
+#	echo ; echo "Set up User Guest"
+#	egrep -i guest /etc/passwd >/dev/null
+#	if [ $? -ne 0 ]
+#	then
+#		sudo adduser --disabled-password --gecos "Guest" guest
+#		sudo adduser guest users
+#		sudo passwd -d guest
+#	fi
+
+echo ; echo "Add users to the users group"
+sudo adduser $USER users
+
+
+#===================================================================================================================
+echo ; echo "Configure shared folder for all users to share files"
+if [ -d /home/Share ]
+then
+	echo "Share folder already exists"
+else
+	sudo mkdir /home/Share
+	sudo chown root:users /home/Share
+	sudo chmod ugo+rwX /home/Share
+	sudo chmod g+s /home/Share
+fi
+
+echo
+echo "Configure public (RO) folder for all users"
+if [ -d /home/Public ]
+then
+	echo "Public folder already exists"
+else
+	sudo mkdir /home/Public
+	sudo chown $USER:users /home/Public
+	sudo chmod ugo+rX /home/Public
+	sudo chmod u+w /home/Public
+	sudo chmod ug+s /home/Public
+fi
+
+
+#===================================================================================================================
+#	echo
+#	echo "Increase limit for file system watches (inotify)"
+#	if [ ! -e /etc/sysctl.d/90-inotify.conf ]
+#	then
+#		sudo cp $HOME/Mint/Sytem/etc/sysctl.d/90-inotify.conf /etc/sysctl.d/
+#		sudo chown root:root /etc/sysctl.d/90-inotify.conf
+#		sudo sysctl -p --system
+#	fi
+
+
+#===================================================================================================================
+#echo ; echo "Set up local configurations"
+#if [ -d "BBG" ]
+#then
+#	cd Mint
+#	git fetch --all
+#	git pull
+#	cd ..
+#else
+#	git clone https://github.com/boderu/BBG.git
+#fi
+#
+#if [ -d ".oh-my-zsh" ]
+#then
+#	cd .oh-my-zsh
+#	git fetch --all
+#	git pull
+#	cd ..
+#else
+#	git clone https://github.com/ohmyzsh/ohmyzsh.git .oh-my-zsh
+#fi
+
+
+#===================================================================================================================
+echo ; echo "Check out or update frameworks"
+
+#if [ -d "$HOME/Frameworks/KiCAD" ]
+#then
+#	pushd "$HOME/Frameworks/KiCAD"
+#	git fetch --all
+#	git pull
+#	popd
+#else
+#	pushd "$HOME/Frameworks"
+#	git clone https://github.com/boderu/Framework.KiCAD.git KiCAD
+#	popd
+#fi
+
+
+#=======================================================================================================================
+#echo ; echo "FireFox Download Helper App"
+#curl -sSLf https://github.com/aclap-dev/vdhcoapp/releases/latest/download/install.sh | bash
+
+
+#=======================================================================================================================
+$HOME/bin/install_links
+
+
+#echo
+#echo "Install broot"
+#curl -o broot -L https://dystroy.org/broot/download/x86_64-linux/broot
+#sudo mv -f broot /usr/local/bin
+#sudo chmod +x /usr/local/bin/broot
+
+
+#read -p "drücke Enter ..."
+
+echo
+echo "Evtl. noch ausführen: sudo dpkg-reconfigure locales"
+echo "Einrichtung beendet."
+echo
+
+# EOF
