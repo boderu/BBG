@@ -1,0 +1,2 @@
+# BBG
+BeagleBone Green settings
