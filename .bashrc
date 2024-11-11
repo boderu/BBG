@@ -120,7 +120,7 @@ fi
 umask 0027
 
 # fast navigation whithin the filesystem with broot
-#source "$HOME/.config/broot/launcher/bash/br"
+source /home/debian/.config/broot/launcher/bash/br
 
 # bash history
 bind '"\e[5~": history-search-backward'
@@ -243,12 +243,11 @@ PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 export LANGUAGE='en_US.UTF-8'
 
-if [ -f ~/.cargo/env ]
+if [ -f $HOME/.cargo/env ]
 then
-	. ~/.cargo/env
+	. $HOME/.cargo/env
 fi
 
 #eval "$(thefuck --alias)"
 
 # EOF
-. "$HOME/.cargo/env"
