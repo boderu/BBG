@@ -78,6 +78,7 @@ Link "$HOME/BBG/.config/git-graph"		"$HOME/.config/git-graph"
 Link "$HOME/BBG/.config/htop"			"$HOME/.config/htop"
 Link "$HOME/BBG/.config/lazygit"		"$HOME/.config/lazygit"
 Link "$HOME/BBG/.config/micro"			"$HOME/.config/micro"
+Link "$HOME/BBG/.config/mc"			"$HOME/.config/mc"
 Link "$HOME/BBG/.local/share/broot"		"$HOME/.local/share/broot"
 
 
