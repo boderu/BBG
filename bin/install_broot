@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo
+echo "Install broot"
+echo "FixMe: Check symlink $HOME/.config/broot/launcher/bash/br"
+
+#curl -o broot -L https://dystroy.org/broot/download/x86_64-linux/broot
+#sudo mv -f broot /usr/local/bin
+#sudo chmod +x /usr/local/bin/broot
+#if [ ! -e "$HOME/.config/laucher/bash/br" ]
+#then
+#	broot --install
+#fi
+echo "FixMe: Clean .bashrc"
+
+# EOF

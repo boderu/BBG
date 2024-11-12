@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
 echo ; echo "Install micro"
+echo "FixMe: Download executable and move it to /usr/locan/bin/"
 
 pushd $HOME
 
-git clone https://github.com/zyedidia/micro
-cd micro
-make build
-sudo mv micro /usr/bin/
-cd ..
-sudo rm -R --force micro
+#git clone https://github.com/zyedidia/micro
+#cd micro
+#make build
+#sudo mv micro /usr/bin/
+#cd ..
+#sudo rm -R --force micro
 
 popd
 

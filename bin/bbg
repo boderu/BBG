@@ -3,12 +3,14 @@
 
 cd $HOME
 
-$HOME/Mint/bin/install_directories
+$HOME/BBG/bin/install_directories
+$HOME/BBG/bin/install_links
 
 $HOME/BBG/bin/install_deb
 $HOME/BBG/bin/install_nerd
-#	$HOME/BBG/bin/install_micro
-#	$HOME/BBG/bin/install_lazygit
+$HOME/BBG/bin/install_broot
+$HOME/BBG/bin/install_micro
+$HOME/BBG/bin/install_lazygit
 #	$HOME/BBG/bin/install_xplr
 $HOME/BBG/bin/install_cppcheck
 $HOME/BBG/bin/install_rust
@@ -84,29 +86,6 @@ fi
 
 
 #===================================================================================================================
-#echo ; echo "Set up local configurations"
-#if [ -d "BBG" ]
-#then
-#	cd Mint
-#	git fetch --all
-#	git pull
-#	cd ..
-#else
-#	git clone https://github.com/boderu/BBG.git
-#fi
-#
-#if [ -d ".oh-my-zsh" ]
-#then
-#	cd .oh-my-zsh
-#	git fetch --all
-#	git pull
-#	cd ..
-#else
-#	git clone https://github.com/ohmyzsh/ohmyzsh.git .oh-my-zsh
-#fi
-
-
-#===================================================================================================================
 echo ; echo "Check out or update frameworks"
 
 #if [ -d "$HOME/Frameworks/KiCAD" ]
@@ -123,21 +102,6 @@ echo ; echo "Check out or update frameworks"
 
 
 #=======================================================================================================================
-#echo ; echo "FireFox Download Helper App"
-#curl -sSLf https://github.com/aclap-dev/vdhcoapp/releases/latest/download/install.sh | bash
-
-
-#=======================================================================================================================
-$HOME/bin/install_links
-
-
-#echo
-#echo "Install broot"
-#curl -o broot -L https://dystroy.org/broot/download/x86_64-linux/broot
-#sudo mv -f broot /usr/local/bin
-#sudo chmod +x /usr/local/bin/broot
-
-
 #read -p "drücke Enter ..."
 
 echo
