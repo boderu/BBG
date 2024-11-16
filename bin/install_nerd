@@ -11,6 +11,7 @@ then
 	./install.sh
 	cd ..
 	sudo rm -R --force nerd-fonts
+	fc-cache -f -v
 else
 	echo "Nerd Fonts already installed"
 fi
